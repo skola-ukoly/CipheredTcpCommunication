@@ -1,5 +1,5 @@
 use clap::Parser;
-use tokio::{net::TcpListener, sync::broadcast, io::BufReader};
+use tokio::{net::TcpListener, sync::broadcast};
 use std::str;
 
 #[derive(Parser, Debug)]
@@ -12,7 +12,7 @@ struct Args {
 async fn main() {
     let args = Args::parse();
 
-    let listener = TcpListener::bind(format!("localhost:{}", args.port))
+    let listener = TcpListener::bind(format!("127.0.0.1:{}", args.port))
         .await
         .expect("could not start the listener");
     let (sender, _) = broadcast::channel::<String>(16);
